@@ -1,0 +1,406 @@
+Tue 01 Sep 2023 11:03:36 INFO {'seed': 2023, 'reproducibility': True, 'validation': False, 'valid_portion': 0.1, 'rating_threshold': 0, 'split_ratio': 0.2, 'filter_strategy': 'core', 'train_test_strategy': 'ratio', 'core': 5, 'image_cluster_num': 20, 'text_cluster_num': 20, 'link_k': 1, 'cluster_method': 'kmeans', 'image_extractor': 'resnet', 'text_extractor': 't5', 'num_node': {'sample': 310, 'fashion': 59925, 'ml-1m': 3308}, 'data_folder': {'sample': '/home/holdenhu/Projects/CASRec/data/sample', 'fashion': '/ssd1/holdenhu/Amazon_dataset/Amazon_Fashion/', 'beauty': '/ssd1/holdenhu/Amazon2014_dataset/Amazon_Beauty/', 'sport': '/ssd1/holdenhu/Amazon2014_dataset/Amazon_Sport/', 'clothing': '/ssd1/holdenhu/Amazon2014_dataset/Amazon_Clothing/', 'toy': '/ssd1/holdenhu/Amazon2014_dataset/Amazon_Toy/', 'kitchen': '/ssd1/holdenhu/Amazon2014_dataset/Amazon_Kitchen/', 'phone': '/ssd1/holdenhu/Amazon2014_dataset/Amazon_Phone/', 'ml-1m': '/ssd1/holdenhu/ML_dataset/ml-1m/'}, 'cluster_num': {'beauty': 20, 'sample': 2, 'fashion': 20, 'ml-1m': 20, 'clothing': 20, 'sport': 20, 'toy': 20, 'kitchen': 20, 'phone': 20}, 'k': {'beauty': 1, 'sample': 2, 'fashion': 1, 'ml-1m': 2, 'clothing': 1, 'sport': 1, 'toy': 1, 'kitchen': 1, 'phone': 1}, 'embedding_size': 128, 'aggregator': 'hete_attention', 'alpha': 0.1, 'auxiliary_info': ['pos'], 'max_relid': 10, 'n_layer': 1, 'fusion_type': 'asy_mask', 'dropout_output': 0.4, 'dropout_atten': 0.2, 'seq_pooling': 'last_sum', 'last_n': 2, 'modality_prediction': False, 'loss_type': 'CE', 'freeze_feature': False, 'use_CD': True, 'use_CCA': False, 'use_AT': True, 'gamma': 2, 'schedule': [5, 10], 'use_image_modality_encoder': '', 'use_text_modality_encoder': '', 'quantization_method': 'kmeans', 'cor_type': 'cos', 'cor_code_num': 50, 'product_domain_D': 8, 'tau': 1.5, 'v_s_weight': 4, 'v_c_weight': 0.5, 't_s_weight': 4, 't_c_weight': 0.5, 'dataset_type': 'dataset_mmsr', 'epoch': 100, 'batch_size': 256, 'lr': 0.001, 'lr_dc': 0.0001, 'lr_dc_step': 40, 'l2': 0, 'patience': 6, 'topk': [5, 20], 'cuda_id': 0, 'tune_parameters': False, 'model_name': 'VLGraph', 'dataset': 'beauty', 'log_dir': './log/VLGraph/beauty/bs256-Sep-22-2023_20-43-51-lr0.001-hNone', 'noise_type': [], 'noise_level': 0}
+Tue 01 Sep 2023 11:03:36 INFO  Used data_folder: /ssd1/holdenhu/Amazon2014_dataset/Amazon_Beauty/dataset_mmsr/thre-0_filt-core_core-5_split-[ratio]_ratio-0.2__imagec-20_textc-20_k-1-resnet-t5
+Tue 01 Sep 2023 11:05:57 INFO  VLGraph(
+  (img_emb_project): Linear(in_features=128, out_features=128, bias=True)
+  (txt_emb_project): Linear(in_features=128, out_features=128, bias=True)
+  (img_cor_project): Linear(in_features=128, out_features=128, bias=True)
+  (txt_cor_project): Linear(in_features=128, out_features=128, bias=True)
+  (img_cor_param_layer): Linear(in_features=128, out_features=128, bias=True)
+  (img_cor_prediction_layer): Linear(in_features=128, out_features=50, bias=True)
+  (txt_cor_param_layer): Linear(in_features=128, out_features=128, bias=True)
+  (txt_cor_prediction_layer): Linear(in_features=128, out_features=50, bias=True)
+  (local_agg_img): RGATLayer(
+    (a_params): ParameterList(
+        (0): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+        (1): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+        (2): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+        (3): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+    )
+    (dropout_atten): Dropout(p=0.2, inplace=False)
+    (leakyrelu): LeakyReLU(negative_slope=0.1)
+  )
+  (local_agg_txt): RGATLayer(
+    (a_params): ParameterList(
+        (0): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+        (1): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+        (2): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+        (3): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+    )
+    (dropout_atten): Dropout(p=0.2, inplace=False)
+    (leakyrelu): LeakyReLU(negative_slope=0.1)
+  )
+  (local_agg_item): RGATLayer(
+    (a_params): ParameterList(
+        (0): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+        (1): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+        (2): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+        (3): Parameter containing: [torch.cuda.FloatTensor of size 128x1 (GPU 0)]
+    )
+    (dropout_atten): Dropout(p=0.2, inplace=False)
+    (leakyrelu): LeakyReLU(negative_slope=0.1)
+  )
+  (modality_projection): Sequential(
+    (0): Linear(in_features=128, out_features=128, bias=True)
+    (1): ReLU(inplace=True)
+    (2): Linear(in_features=128, out_features=1, bias=True)
+  )
+  (embedding): Embedding(12102, 128, padding_idx=0)
+  (pos_embedding): Embedding(150, 128)
+  (glu1): Linear(in_features=128, out_features=128, bias=True)
+  (glu2): Linear(in_features=128, out_features=128, bias=False)
+  (projection): Sequential(
+    (0): Linear(in_features=128, out_features=128, bias=True)
+    (1): ReLU(inplace=True)
+    (2): Linear(in_features=128, out_features=1, bias=True)
+  )
+  (fusion_layer): Linear(in_features=384, out_features=128, bias=True)
+  (dropout_out): Dropout(p=0.4, inplace=False)
+  (loss_function): CrossEntropyLoss()
+  (image_embedding): Embedding(12102, 128, padding_idx=0)
+  (text_embedding): Embedding(12102, 128, padding_idx=0)
+)
+Tue 01 Sep 2023 11:05:57 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:05:57 INFO  epoch: 0
+Tue 01 Sep 2023 11:05:57 INFO  start training.
+Tue 01 Sep 2023 11:08:33 INFO  	Loss:	5358.622 	 V_loss_cor: 28.954 	 V_loss_corcode: 1379.965 	 T_loss_cor: 14.775 	 T_loss_corcode: 1339.659
+Tue 01 Sep 2023 11:08:33 INFO  start predicting.
+Tue 01 Sep 2023 11:08:50 INFO  Current Result: Recall@5: 0.6717 	 MMR@5: 0.3278 	 NDCG@5: 0.1398
+Tue 01 Sep 2023 11:08:50 INFO  Current Result: Recall@20: 1.9091 	 MMR@20: 0.4503 	 NDCG@20: 0.1087
+Tue 01 Sep 2023 11:08:50 INFO  >> Best Result: Recall@5: 0.6717 	 MMR@5: 0.3278 	 NDCG@5: 0.1398   (Epoch: 	 0, 	 0, 	 0)
+Tue 01 Sep 2023 11:08:50 INFO  >> Best Result: Recall@20: 1.9091 	 MMR@20: 0.4503 	 NDCG@20: 0.1087   (Epoch: 	 0, 	 0, 	 0)
+Tue 01 Sep 2023 11:08:50 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:08:50 INFO  epoch: 1
+Tue 01 Sep 2023 11:08:50 INFO  start training.
+Tue 01 Sep 2023 11:11:30 INFO  	Loss:	4904.163 	 V_loss_cor: 12.176 	 V_loss_corcode: 564.582 	 T_loss_cor: 6.459 	 T_loss_corcode: 419.102
+Tue 01 Sep 2023 11:11:30 INFO  start predicting.
+Tue 01 Sep 2023 11:11:49 INFO  Current Result: Recall@5: 1.3641 	 MMR@5: 0.6927 	 NDCG@5: 0.2907
+Tue 01 Sep 2023 11:11:49 INFO  Current Result: Recall@20: 3.3233 	 MMR@20: 0.8759 	 NDCG@20: 0.1995
+Tue 01 Sep 2023 11:11:49 INFO  >> Best Result: Recall@5: 1.3641 	 MMR@5: 0.6927 	 NDCG@5: 0.2907   (Epoch: 	 1, 	 1, 	 1)
+Tue 01 Sep 2023 11:11:49 INFO  >> Best Result: Recall@20: 3.3233 	 MMR@20: 0.8759 	 NDCG@20: 0.1995   (Epoch: 	 1, 	 1, 	 1)
+Tue 01 Sep 2023 11:11:49 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:11:49 INFO  epoch: 2
+Tue 01 Sep 2023 11:11:49 INFO  start training.
+Tue 01 Sep 2023 11:14:28 INFO  	Loss:	4718.858 	 V_loss_cor: 9.919 	 V_loss_corcode: 367.361 	 T_loss_cor: 5.682 	 T_loss_corcode: 244.625
+Tue 01 Sep 2023 11:14:28 INFO  start predicting.
+Tue 01 Sep 2023 11:14:47 INFO  Current Result: Recall@5: 2.1124 	 MMR@5: 0.9954 	 NDCG@5: 0.4305
+Tue 01 Sep 2023 11:14:47 INFO  Current Result: Recall@20: 5.8423 	 MMR@20: 1.3405 	 NDCG@20: 0.3277
+Tue 01 Sep 2023 11:14:47 INFO  >> Best Result: Recall@5: 2.1124 	 MMR@5: 0.9954 	 NDCG@5: 0.4305   (Epoch: 	 2, 	 2, 	 2)
+Tue 01 Sep 2023 11:14:47 INFO  >> Best Result: Recall@20: 5.8423 	 MMR@20: 1.3405 	 NDCG@20: 0.3277   (Epoch: 	 2, 	 2, 	 2)
+Tue 01 Sep 2023 11:14:47 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:14:47 INFO  epoch: 3
+Tue 01 Sep 2023 11:14:47 INFO  start training.
+Tue 01 Sep 2023 11:17:27 INFO  	Loss:	4549.012 	 V_loss_cor: 12.488 	 V_loss_corcode: 275.334 	 T_loss_cor: 6.046 	 T_loss_corcode: 172.846
+Tue 01 Sep 2023 11:17:27 INFO  start predicting.
+Tue 01 Sep 2023 11:17:47 INFO  Current Result: Recall@5: 3.1407 	 MMR@5: 1.6372 	 NDCG@5: 0.6806
+Tue 01 Sep 2023 11:17:47 INFO  Current Result: Recall@20: 8.1757 	 MMR@20: 2.1003 	 NDCG@20: 0.4836
+Tue 01 Sep 2023 11:17:47 INFO  >> Best Result: Recall@5: 3.1407 	 MMR@5: 1.6372 	 NDCG@5: 0.6806   (Epoch: 	 3, 	 3, 	 3)
+Tue 01 Sep 2023 11:17:47 INFO  >> Best Result: Recall@20: 8.1757 	 MMR@20: 2.1003 	 NDCG@20: 0.4836   (Epoch: 	 3, 	 3, 	 3)
+Tue 01 Sep 2023 11:17:47 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:17:47 INFO  epoch: 4
+Tue 01 Sep 2023 11:17:47 INFO  start training.
+Tue 01 Sep 2023 11:20:28 INFO  	Loss:	4398.431 	 V_loss_cor: 8.197 	 V_loss_corcode: 223.063 	 T_loss_cor: 5.183 	 T_loss_corcode: 134.776
+Tue 01 Sep 2023 11:20:28 INFO  start predicting.
+Tue 01 Sep 2023 11:20:47 INFO  Current Result: Recall@5: 4.2455 	 MMR@5: 2.3029 	 NDCG@5: 0.9432
+Tue 01 Sep 2023 11:20:47 INFO  Current Result: Recall@20: 10.0672 	 MMR@20: 2.8485 	 NDCG@20: 0.6261
+Tue 01 Sep 2023 11:20:47 INFO  >> Best Result: Recall@5: 4.2455 	 MMR@5: 2.3029 	 NDCG@5: 0.9432   (Epoch: 	 4, 	 4, 	 4)
+Tue 01 Sep 2023 11:20:47 INFO  >> Best Result: Recall@20: 10.0672 	 MMR@20: 2.8485 	 NDCG@20: 0.6261   (Epoch: 	 4, 	 4, 	 4)
+Tue 01 Sep 2023 11:20:47 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:20:47 INFO  epoch: 5
+Tue 01 Sep 2023 11:20:47 INFO  start training.
+Tue 01 Sep 2023 11:23:27 INFO  	Loss:	4293.898 	 V_loss_cor: 8.068 	 V_loss_corcode: 189.494 	 T_loss_cor: 5.061 	 T_loss_corcode: 110.511
+Tue 01 Sep 2023 11:23:27 INFO  start predicting.
+Tue 01 Sep 2023 11:23:46 INFO  Current Result: Recall@5: 4.7699 	 MMR@5: 2.5493 	 NDCG@5: 1.0502
+Tue 01 Sep 2023 11:23:46 INFO  Current Result: Recall@20: 11.3723 	 MMR@20: 3.1712 	 NDCG@20: 0.7026
+Tue 01 Sep 2023 11:23:46 INFO  >> Best Result: Recall@5: 4.7699 	 MMR@5: 2.5493 	 NDCG@5: 1.0502   (Epoch: 	 5, 	 5, 	 5)
+Tue 01 Sep 2023 11:23:46 INFO  >> Best Result: Recall@20: 11.3723 	 MMR@20: 3.1712 	 NDCG@20: 0.7026   (Epoch: 	 5, 	 5, 	 5)
+Tue 01 Sep 2023 11:23:46 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:23:46 INFO  epoch: 6
+Tue 01 Sep 2023 11:23:46 INFO  start training.
+Tue 01 Sep 2023 11:26:25 INFO  	Loss:	4205.294 	 V_loss_cor: 8.520 	 V_loss_corcode: 165.498 	 T_loss_cor: 4.823 	 T_loss_corcode: 93.975
+Tue 01 Sep 2023 11:26:25 INFO  start predicting.
+Tue 01 Sep 2023 11:26:46 INFO  Current Result: Recall@5: 5.4917 	 MMR@5: 2.9356 	 NDCG@5: 1.2089
+Tue 01 Sep 2023 11:26:46 INFO  Current Result: Recall@20: 12.6215 	 MMR@20: 3.6221 	 NDCG@20: 0.7923
+Tue 01 Sep 2023 11:26:46 INFO  >> Best Result: Recall@5: 5.4917 	 MMR@5: 2.9356 	 NDCG@5: 1.2089   (Epoch: 	 6, 	 6, 	 6)
+Tue 01 Sep 2023 11:26:46 INFO  >> Best Result: Recall@20: 12.6215 	 MMR@20: 3.6221 	 NDCG@20: 0.7923   (Epoch: 	 6, 	 6, 	 6)
+Tue 01 Sep 2023 11:26:46 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:26:46 INFO  epoch: 7
+Tue 01 Sep 2023 11:26:46 INFO  start training.
+Tue 01 Sep 2023 11:29:26 INFO  	Loss:	4126.318 	 V_loss_cor: 7.925 	 V_loss_corcode: 150.636 	 T_loss_cor: 5.317 	 T_loss_corcode: 81.757
+Tue 01 Sep 2023 11:29:26 INFO  start predicting.
+Tue 01 Sep 2023 11:29:47 INFO  Current Result: Recall@5: 5.9926 	 MMR@5: 3.2439 	 NDCG@5: 1.3297
+Tue 01 Sep 2023 11:29:47 INFO  Current Result: Recall@20: 13.3640 	 MMR@20: 3.9547 	 NDCG@20: 0.8526
+Tue 01 Sep 2023 11:29:47 INFO  >> Best Result: Recall@5: 5.9926 	 MMR@5: 3.2439 	 NDCG@5: 1.3297   (Epoch: 	 7, 	 7, 	 7)
+Tue 01 Sep 2023 11:29:47 INFO  >> Best Result: Recall@20: 13.3640 	 MMR@20: 3.9547 	 NDCG@20: 0.8526   (Epoch: 	 7, 	 7, 	 7)
+Tue 01 Sep 2023 11:29:47 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:29:47 INFO  epoch: 8
+Tue 01 Sep 2023 11:29:47 INFO  start training.
+Tue 01 Sep 2023 11:32:25 INFO  	Loss:	4042.290 	 V_loss_cor: 7.446 	 V_loss_corcode: 139.402 	 T_loss_cor: 4.587 	 T_loss_corcode: 73.195
+Tue 01 Sep 2023 11:32:25 INFO  start predicting.
+Tue 01 Sep 2023 11:32:44 INFO  Current Result: Recall@5: 6.4787 	 MMR@5: 3.5836 	 NDCG@5: 1.4571
+Tue 01 Sep 2023 11:32:44 INFO  Current Result: Recall@20: 14.0563 	 MMR@20: 4.3011 	 NDCG@20: 0.9123
+Tue 01 Sep 2023 11:32:44 INFO  >> Best Result: Recall@5: 6.4787 	 MMR@5: 3.5836 	 NDCG@5: 1.4571   (Epoch: 	 8, 	 8, 	 8)
+Tue 01 Sep 2023 11:32:44 INFO  >> Best Result: Recall@20: 14.0563 	 MMR@20: 4.3011 	 NDCG@20: 0.9123   (Epoch: 	 8, 	 8, 	 8)
+Tue 01 Sep 2023 11:32:44 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:32:44 INFO  epoch: 9
+Tue 01 Sep 2023 11:32:44 INFO  start training.
+Tue 01 Sep 2023 11:35:21 INFO  	Loss:	3970.648 	 V_loss_cor: 7.458 	 V_loss_corcode: 132.237 	 T_loss_cor: 4.650 	 T_loss_corcode: 66.033
+Tue 01 Sep 2023 11:35:21 INFO  start predicting.
+Tue 01 Sep 2023 11:35:40 INFO  Current Result: Recall@5: 6.6731 	 MMR@5: 3.8137 	 NDCG@5: 1.5324
+Tue 01 Sep 2023 11:35:40 INFO  Current Result: Recall@20: 14.0858 	 MMR@20: 4.5211 	 NDCG@20: 0.9381
+Tue 01 Sep 2023 11:35:40 INFO  >> Best Result: Recall@5: 6.6731 	 MMR@5: 3.8137 	 NDCG@5: 1.5324   (Epoch: 	 9, 	 9, 	 9)
+Tue 01 Sep 2023 11:35:40 INFO  >> Best Result: Recall@20: 14.0858 	 MMR@20: 4.5211 	 NDCG@20: 0.9381   (Epoch: 	 9, 	 9, 	 9)
+Tue 01 Sep 2023 11:35:40 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:35:40 INFO  epoch: 10
+Tue 01 Sep 2023 11:35:40 INFO  start training.
+Tue 01 Sep 2023 11:38:19 INFO  	Loss:	3897.725 	 V_loss_cor: 7.498 	 V_loss_corcode: 128.132 	 T_loss_cor: 4.635 	 T_loss_corcode: 60.537
+Tue 01 Sep 2023 11:38:19 INFO  start predicting.
+Tue 01 Sep 2023 11:38:38 INFO  Current Result: Recall@5: 6.9000 	 MMR@5: 3.9385 	 NDCG@5: 1.5842
+Tue 01 Sep 2023 11:38:38 INFO  Current Result: Recall@20: 14.3215 	 MMR@20: 4.6500 	 NDCG@20: 0.9607
+Tue 01 Sep 2023 11:38:38 INFO  >> Best Result: Recall@5: 6.9000 	 MMR@5: 3.9385 	 NDCG@5: 1.5842   (Epoch: 	 10, 	 10, 	 10)
+Tue 01 Sep 2023 11:38:38 INFO  >> Best Result: Recall@20: 14.3215 	 MMR@20: 4.6500 	 NDCG@20: 0.9607   (Epoch: 	 10, 	 10, 	 10)
+Tue 01 Sep 2023 11:38:38 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:38:38 INFO  epoch: 11
+Tue 01 Sep 2023 11:38:38 INFO  start training.
+Tue 01 Sep 2023 11:41:23 INFO  	Loss:	3826.231 	 V_loss_cor: 7.783 	 V_loss_corcode: 125.541 	 T_loss_cor: 4.565 	 T_loss_corcode: 56.037
+Tue 01 Sep 2023 11:41:23 INFO  start predicting.
+Tue 01 Sep 2023 11:41:42 INFO  Current Result: Recall@5: 7.1828 	 MMR@5: 4.0198 	 NDCG@5: 1.6280
+Tue 01 Sep 2023 11:41:42 INFO  Current Result: Recall@20: 14.5248 	 MMR@20: 4.7252 	 NDCG@20: 0.9761
+Tue 01 Sep 2023 11:41:42 INFO  >> Best Result: Recall@5: 7.1828 	 MMR@5: 4.0198 	 NDCG@5: 1.6280   (Epoch: 	 11, 	 11, 	 11)
+Tue 01 Sep 2023 11:41:42 INFO  >> Best Result: Recall@20: 14.5248 	 MMR@20: 4.7252 	 NDCG@20: 0.9761   (Epoch: 	 11, 	 11, 	 11)
+Tue 01 Sep 2023 11:41:42 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:41:42 INFO  epoch: 12
+Tue 01 Sep 2023 11:41:42 INFO  start training.
+Tue 01 Sep 2023 11:44:22 INFO  	Loss:	3757.896 	 V_loss_cor: 7.407 	 V_loss_corcode: 124.494 	 T_loss_cor: 5.008 	 T_loss_corcode: 52.031
+Tue 01 Sep 2023 11:44:22 INFO  start predicting.
+Tue 01 Sep 2023 11:44:41 INFO  Current Result: Recall@5: 7.1239 	 MMR@5: 4.1095 	 NDCG@5: 1.6467
+Tue 01 Sep 2023 11:44:41 INFO  Current Result: Recall@20: 14.6249 	 MMR@20: 4.8317 	 NDCG@20: 0.9905
+Tue 01 Sep 2023 11:44:41 INFO  >> Best Result: Recall@5: 7.1828 	 MMR@5: 4.1095 	 NDCG@5: 1.6467   (Epoch: 	 11, 	 12, 	 12)
+Tue 01 Sep 2023 11:44:41 INFO  >> Best Result: Recall@20: 14.6249 	 MMR@20: 4.8317 	 NDCG@20: 0.9905   (Epoch: 	 12, 	 12, 	 12)
+Tue 01 Sep 2023 11:44:41 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:44:41 INFO  epoch: 13
+Tue 01 Sep 2023 11:44:41 INFO  start training.
+Tue 01 Sep 2023 11:47:19 INFO  	Loss:	3688.732 	 V_loss_cor: 8.245 	 V_loss_corcode: 125.188 	 T_loss_cor: 4.269 	 T_loss_corcode: 48.535
+Tue 01 Sep 2023 11:47:19 INFO  start predicting.
+Tue 01 Sep 2023 11:47:38 INFO  Current Result: Recall@5: 7.2506 	 MMR@5: 4.2959 	 NDCG@5: 1.7043
+Tue 01 Sep 2023 11:47:38 INFO  Current Result: Recall@20: 14.5042 	 MMR@20: 5.0016 	 NDCG@20: 1.0059
+Tue 01 Sep 2023 11:47:38 INFO  >> Best Result: Recall@5: 7.2506 	 MMR@5: 4.2959 	 NDCG@5: 1.7043   (Epoch: 	 13, 	 13, 	 13)
+Tue 01 Sep 2023 11:47:38 INFO  >> Best Result: Recall@20: 14.6249 	 MMR@20: 5.0016 	 NDCG@20: 1.0059   (Epoch: 	 12, 	 13, 	 13)
+Tue 01 Sep 2023 11:47:38 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:47:38 INFO  epoch: 14
+Tue 01 Sep 2023 11:47:38 INFO  start training.
+Tue 01 Sep 2023 11:50:16 INFO  	Loss:	3616.188 	 V_loss_cor: 7.265 	 V_loss_corcode: 126.435 	 T_loss_cor: 4.329 	 T_loss_corcode: 45.939
+Tue 01 Sep 2023 11:50:16 INFO  start predicting.
+Tue 01 Sep 2023 11:50:35 INFO  Current Result: Recall@5: 7.4156 	 MMR@5: 4.3590 	 NDCG@5: 1.7344
+Tue 01 Sep 2023 11:50:35 INFO  Current Result: Recall@20: 14.6750 	 MMR@20: 5.0543 	 NDCG@20: 1.0170
+Tue 01 Sep 2023 11:50:35 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.3590 	 NDCG@5: 1.7344   (Epoch: 	 14, 	 14, 	 14)
+Tue 01 Sep 2023 11:50:35 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.0543 	 NDCG@20: 1.0170   (Epoch: 	 14, 	 14, 	 14)
+Tue 01 Sep 2023 11:50:35 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:50:35 INFO  epoch: 15
+Tue 01 Sep 2023 11:50:35 INFO  start training.
+Tue 01 Sep 2023 11:53:15 INFO  	Loss:	3554.583 	 V_loss_cor: 8.806 	 V_loss_corcode: 126.994 	 T_loss_cor: 4.371 	 T_loss_corcode: 43.472
+Tue 01 Sep 2023 11:53:15 INFO  start predicting.
+Tue 01 Sep 2023 11:53:34 INFO  Current Result: Recall@5: 7.2536 	 MMR@5: 4.2118 	 NDCG@5: 1.6831
+Tue 01 Sep 2023 11:53:34 INFO  Current Result: Recall@20: 14.4541 	 MMR@20: 4.9040 	 NDCG@20: 0.9936
+Tue 01 Sep 2023 11:53:34 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.3590 	 NDCG@5: 1.7344   (Epoch: 	 14, 	 14, 	 14)
+Tue 01 Sep 2023 11:53:34 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.0543 	 NDCG@20: 1.0170   (Epoch: 	 14, 	 14, 	 14)
+Tue 01 Sep 2023 11:53:34 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:53:34 INFO  epoch: 16
+Tue 01 Sep 2023 11:53:34 INFO  start training.
+Tue 01 Sep 2023 11:56:14 INFO  	Loss:	3487.285 	 V_loss_cor: 7.442 	 V_loss_corcode: 125.546 	 T_loss_cor: 4.950 	 T_loss_corcode: 41.262
+Tue 01 Sep 2023 11:56:14 INFO  start predicting.
+Tue 01 Sep 2023 11:56:34 INFO  Current Result: Recall@5: 7.3655 	 MMR@5: 4.4348 	 NDCG@5: 1.7499
+Tue 01 Sep 2023 11:56:34 INFO  Current Result: Recall@20: 14.6014 	 MMR@20: 5.1197 	 NDCG@20: 1.0212
+Tue 01 Sep 2023 11:56:34 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.4348 	 NDCG@5: 1.7499   (Epoch: 	 14, 	 16, 	 16)
+Tue 01 Sep 2023 11:56:34 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.1197 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 16, 	 16)
+Tue 01 Sep 2023 11:56:34 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:56:34 INFO  epoch: 17
+Tue 01 Sep 2023 11:56:34 INFO  start training.
+Tue 01 Sep 2023 11:59:14 INFO  	Loss:	3415.453 	 V_loss_cor: 7.627 	 V_loss_corcode: 126.606 	 T_loss_cor: 4.122 	 T_loss_corcode: 38.939
+Tue 01 Sep 2023 11:59:14 INFO  start predicting.
+Tue 01 Sep 2023 11:59:34 INFO  Current Result: Recall@5: 7.0620 	 MMR@5: 4.2379 	 NDCG@5: 1.6741
+Tue 01 Sep 2023 11:59:34 INFO  Current Result: Recall@20: 14.4541 	 MMR@20: 4.9532 	 NDCG@20: 0.9983
+Tue 01 Sep 2023 11:59:34 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.4348 	 NDCG@5: 1.7499   (Epoch: 	 14, 	 16, 	 16)
+Tue 01 Sep 2023 11:59:34 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.1197 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 16, 	 16)
+Tue 01 Sep 2023 11:59:34 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 11:59:34 INFO  epoch: 18
+Tue 01 Sep 2023 11:59:34 INFO  start training.
+Tue 01 Sep 2023 12:02:15 INFO  	Loss:	3356.248 	 V_loss_cor: 7.856 	 V_loss_corcode: 126.904 	 T_loss_cor: 4.123 	 T_loss_corcode: 37.360
+Tue 01 Sep 2023 12:02:15 INFO  start predicting.
+Tue 01 Sep 2023 12:02:34 INFO  Current Result: Recall@5: 7.3390 	 MMR@5: 4.4270 	 NDCG@5: 1.7454
+Tue 01 Sep 2023 12:02:34 INFO  Current Result: Recall@20: 14.4806 	 MMR@20: 5.1079 	 NDCG@20: 1.0164
+Tue 01 Sep 2023 12:02:34 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.4348 	 NDCG@5: 1.7499   (Epoch: 	 14, 	 16, 	 16)
+Tue 01 Sep 2023 12:02:34 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.1197 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 16, 	 16)
+Tue 01 Sep 2023 12:02:34 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:02:34 INFO  epoch: 19
+Tue 01 Sep 2023 12:02:34 INFO  start training.
+Tue 01 Sep 2023 12:05:10 INFO  	Loss:	3291.383 	 V_loss_cor: 7.891 	 V_loss_corcode: 125.442 	 T_loss_cor: 4.142 	 T_loss_corcode: 35.678
+Tue 01 Sep 2023 12:05:10 INFO  start predicting.
+Tue 01 Sep 2023 12:05:29 INFO  Current Result: Recall@5: 7.1151 	 MMR@5: 4.3956 	 NDCG@5: 1.7191
+Tue 01 Sep 2023 12:05:29 INFO  Current Result: Recall@20: 14.1860 	 MMR@20: 5.0648 	 NDCG@20: 1.0018
+Tue 01 Sep 2023 12:05:29 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.4348 	 NDCG@5: 1.7499   (Epoch: 	 14, 	 16, 	 16)
+Tue 01 Sep 2023 12:05:29 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.1197 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 16, 	 16)
+Tue 01 Sep 2023 12:05:29 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:05:29 INFO  epoch: 20
+Tue 01 Sep 2023 12:05:29 INFO  start training.
+Tue 01 Sep 2023 12:08:07 INFO  	Loss:	3233.177 	 V_loss_cor: 8.178 	 V_loss_corcode: 126.874 	 T_loss_cor: 4.081 	 T_loss_corcode: 34.155
+Tue 01 Sep 2023 12:08:07 INFO  start predicting.
+Tue 01 Sep 2023 12:08:28 INFO  Current Result: Recall@5: 7.2064 	 MMR@5: 4.4804 	 NDCG@5: 1.7483
+Tue 01 Sep 2023 12:08:28 INFO  Current Result: Recall@20: 14.0917 	 MMR@20: 5.1433 	 NDCG@20: 1.0084
+Tue 01 Sep 2023 12:08:28 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.4804 	 NDCG@5: 1.7499   (Epoch: 	 14, 	 20, 	 16)
+Tue 01 Sep 2023 12:08:28 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.1433 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 20, 	 16)
+Tue 01 Sep 2023 12:08:28 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:08:28 INFO  epoch: 21
+Tue 01 Sep 2023 12:08:28 INFO  start training.
+Tue 01 Sep 2023 12:11:07 INFO  	Loss:	3173.178 	 V_loss_cor: 8.240 	 V_loss_corcode: 126.704 	 T_loss_cor: 4.495 	 T_loss_corcode: 33.056
+Tue 01 Sep 2023 12:11:07 INFO  start predicting.
+Tue 01 Sep 2023 12:11:26 INFO  Current Result: Recall@5: 7.1386 	 MMR@5: 4.4810 	 NDCG@5: 1.7423
+Tue 01 Sep 2023 12:11:26 INFO  Current Result: Recall@20: 14.1477 	 MMR@20: 5.1546 	 NDCG@20: 1.0106
+Tue 01 Sep 2023 12:11:26 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.4810 	 NDCG@5: 1.7499   (Epoch: 	 14, 	 21, 	 16)
+Tue 01 Sep 2023 12:11:26 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.1546 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 21, 	 16)
+Tue 01 Sep 2023 12:11:26 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:11:26 INFO  epoch: 22
+Tue 01 Sep 2023 12:11:26 INFO  start training.
+Tue 01 Sep 2023 12:14:05 INFO  	Loss:	3116.656 	 V_loss_cor: 8.471 	 V_loss_corcode: 127.170 	 T_loss_cor: 3.940 	 T_loss_corcode: 31.175
+Tue 01 Sep 2023 12:14:05 INFO  start predicting.
+Tue 01 Sep 2023 12:14:27 INFO  Current Result: Recall@5: 7.1298 	 MMR@5: 4.4298 	 NDCG@5: 1.7288
+Tue 01 Sep 2023 12:14:27 INFO  Current Result: Recall@20: 13.9650 	 MMR@20: 5.0889 	 NDCG@20: 0.9984
+Tue 01 Sep 2023 12:14:27 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.4810 	 NDCG@5: 1.7499   (Epoch: 	 14, 	 21, 	 16)
+Tue 01 Sep 2023 12:14:27 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.1546 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 21, 	 16)
+Tue 01 Sep 2023 12:14:27 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:14:27 INFO  epoch: 23
+Tue 01 Sep 2023 12:14:27 INFO  start training.
+Tue 01 Sep 2023 12:17:06 INFO  	Loss:	3057.072 	 V_loss_cor: 8.529 	 V_loss_corcode: 126.682 	 T_loss_cor: 3.975 	 T_loss_corcode: 30.142
+Tue 01 Sep 2023 12:17:06 INFO  start predicting.
+Tue 01 Sep 2023 12:17:26 INFO  Current Result: Recall@5: 7.2624 	 MMR@5: 4.5189 	 NDCG@5: 1.7628
+Tue 01 Sep 2023 12:17:26 INFO  Current Result: Recall@20: 13.9267 	 MMR@20: 5.1592 	 NDCG@20: 1.0054
+Tue 01 Sep 2023 12:17:26 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.5189 	 NDCG@5: 1.7628   (Epoch: 	 14, 	 23, 	 23)
+Tue 01 Sep 2023 12:17:26 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.1592 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 23, 	 16)
+Tue 01 Sep 2023 12:17:26 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:17:26 INFO  epoch: 24
+Tue 01 Sep 2023 12:17:26 INFO  start training.
+Tue 01 Sep 2023 12:20:05 INFO  	Loss:	3005.993 	 V_loss_cor: 8.671 	 V_loss_corcode: 126.496 	 T_loss_cor: 4.026 	 T_loss_corcode: 29.046
+Tue 01 Sep 2023 12:20:05 INFO  start predicting.
+Tue 01 Sep 2023 12:20:25 INFO  Current Result: Recall@5: 7.1239 	 MMR@5: 4.5483 	 NDCG@5: 1.7591
+Tue 01 Sep 2023 12:20:25 INFO  Current Result: Recall@20: 13.9267 	 MMR@20: 5.2008 	 NDCG@20: 1.0092
+Tue 01 Sep 2023 12:20:25 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.5483 	 NDCG@5: 1.7628   (Epoch: 	 14, 	 24, 	 23)
+Tue 01 Sep 2023 12:20:25 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2008 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 24, 	 16)
+Tue 01 Sep 2023 12:20:25 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:20:25 INFO  epoch: 25
+Tue 01 Sep 2023 12:20:25 INFO  start training.
+Tue 01 Sep 2023 12:22:57 INFO  	Loss:	2951.539 	 V_loss_cor: 8.874 	 V_loss_corcode: 127.655 	 T_loss_cor: 4.003 	 T_loss_corcode: 27.678
+Tue 01 Sep 2023 12:22:57 INFO  start predicting.
+Tue 01 Sep 2023 12:23:18 INFO  Current Result: Recall@5: 7.1563 	 MMR@5: 4.5619 	 NDCG@5: 1.7653
+Tue 01 Sep 2023 12:23:18 INFO  Current Result: Recall@20: 13.8000 	 MMR@20: 5.2020 	 NDCG@20: 1.0059
+Tue 01 Sep 2023 12:23:18 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.5619 	 NDCG@5: 1.7653   (Epoch: 	 14, 	 25, 	 25)
+Tue 01 Sep 2023 12:23:18 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2020 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 25, 	 16)
+Tue 01 Sep 2023 12:23:18 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:23:18 INFO  epoch: 26
+Tue 01 Sep 2023 12:23:18 INFO  start training.
+Tue 01 Sep 2023 12:25:58 INFO  	Loss:	2899.125 	 V_loss_cor: 9.068 	 V_loss_corcode: 128.117 	 T_loss_cor: 3.900 	 T_loss_corcode: 26.826
+Tue 01 Sep 2023 12:25:58 INFO  start predicting.
+Tue 01 Sep 2023 12:26:18 INFO  Current Result: Recall@5: 7.2211 	 MMR@5: 4.6035 	 NDCG@5: 1.7814
+Tue 01 Sep 2023 12:26:18 INFO  Current Result: Recall@20: 13.7411 	 MMR@20: 5.2271 	 NDCG@20: 1.0070
+Tue 01 Sep 2023 12:26:18 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6035 	 NDCG@5: 1.7814   (Epoch: 	 14, 	 26, 	 26)
+Tue 01 Sep 2023 12:26:18 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2271 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 26, 	 16)
+Tue 01 Sep 2023 12:26:18 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:26:18 INFO  epoch: 27
+Tue 01 Sep 2023 12:26:18 INFO  start training.
+Tue 01 Sep 2023 12:28:57 INFO  	Loss:	2851.475 	 V_loss_cor: 9.134 	 V_loss_corcode: 127.028 	 T_loss_cor: 4.003 	 T_loss_corcode: 25.850
+Tue 01 Sep 2023 12:28:57 INFO  start predicting.
+Tue 01 Sep 2023 12:29:19 INFO  Current Result: Recall@5: 7.2359 	 MMR@5: 4.6316 	 NDCG@5: 1.7893
+Tue 01 Sep 2023 12:29:19 INFO  Current Result: Recall@20: 13.5908 	 MMR@20: 5.2444 	 NDCG@20: 1.0044
+Tue 01 Sep 2023 12:29:19 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6316 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 27, 	 27)
+Tue 01 Sep 2023 12:29:19 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:29:19 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:29:19 INFO  epoch: 28
+Tue 01 Sep 2023 12:29:19 INFO  start training.
+Tue 01 Sep 2023 12:32:09 INFO  	Loss:	2801.592 	 V_loss_cor: 9.355 	 V_loss_corcode: 126.267 	 T_loss_cor: 4.009 	 T_loss_corcode: 24.537
+Tue 01 Sep 2023 12:32:09 INFO  start predicting.
+Tue 01 Sep 2023 12:32:28 INFO  Current Result: Recall@5: 7.1622 	 MMR@5: 4.5802 	 NDCG@5: 1.7699
+Tue 01 Sep 2023 12:32:28 INFO  Current Result: Recall@20: 13.6085 	 MMR@20: 5.1947 	 NDCG@20: 0.9989
+Tue 01 Sep 2023 12:32:28 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6316 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 27, 	 27)
+Tue 01 Sep 2023 12:32:28 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:32:28 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:32:28 INFO  epoch: 29
+Tue 01 Sep 2023 12:32:28 INFO  start training.
+Tue 01 Sep 2023 12:35:10 INFO  	Loss:	2759.961 	 V_loss_cor: 9.462 	 V_loss_corcode: 125.088 	 T_loss_cor: 3.849 	 T_loss_corcode: 23.653
+Tue 01 Sep 2023 12:35:10 INFO  start predicting.
+Tue 01 Sep 2023 12:35:30 INFO  Current Result: Recall@5: 7.1563 	 MMR@5: 4.5845 	 NDCG@5: 1.7708
+Tue 01 Sep 2023 12:35:30 INFO  Current Result: Recall@20: 13.6056 	 MMR@20: 5.2012 	 NDCG@20: 0.9996
+Tue 01 Sep 2023 12:35:30 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6316 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 27, 	 27)
+Tue 01 Sep 2023 12:35:30 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:35:30 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:35:30 INFO  epoch: 30
+Tue 01 Sep 2023 12:35:30 INFO  start training.
+Tue 01 Sep 2023 12:38:03 INFO  	Loss:	2712.591 	 V_loss_cor: 9.701 	 V_loss_corcode: 123.088 	 T_loss_cor: 4.095 	 T_loss_corcode: 23.067
+Tue 01 Sep 2023 12:38:03 INFO  start predicting.
+Tue 01 Sep 2023 12:38:22 INFO  Current Result: Recall@5: 7.2064 	 MMR@5: 4.6355 	 NDCG@5: 1.7880
+Tue 01 Sep 2023 12:38:22 INFO  Current Result: Recall@20: 13.5496 	 MMR@20: 5.2391 	 NDCG@20: 1.0022
+Tue 01 Sep 2023 12:38:22 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6355 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 30, 	 27)
+Tue 01 Sep 2023 12:38:22 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:38:22 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:38:22 INFO  epoch: 31
+Tue 01 Sep 2023 12:38:22 INFO  start training.
+Tue 01 Sep 2023 12:40:59 INFO  	Loss:	2671.753 	 V_loss_cor: 9.818 	 V_loss_corcode: 123.347 	 T_loss_cor: 3.753 	 T_loss_corcode: 21.830
+Tue 01 Sep 2023 12:40:59 INFO  start predicting.
+Tue 01 Sep 2023 12:41:18 INFO  Current Result: Recall@5: 7.0444 	 MMR@5: 4.5325 	 NDCG@5: 1.7484
+Tue 01 Sep 2023 12:41:18 INFO  Current Result: Recall@20: 13.3993 	 MMR@20: 5.1468 	 NDCG@20: 0.9876
+Tue 01 Sep 2023 12:41:18 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6355 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 30, 	 27)
+Tue 01 Sep 2023 12:41:18 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:41:18 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:41:18 INFO  epoch: 32
+Tue 01 Sep 2023 12:41:18 INFO  start training.
+Tue 01 Sep 2023 12:43:47 INFO  	Loss:	2629.654 	 V_loss_cor: 9.976 	 V_loss_corcode: 123.258 	 T_loss_cor: 3.781 	 T_loss_corcode: 21.095
+Tue 01 Sep 2023 12:43:47 INFO  start predicting.
+Tue 01 Sep 2023 12:44:06 INFO  Current Result: Recall@5: 7.0856 	 MMR@5: 4.5109 	 NDCG@5: 1.7461
+Tue 01 Sep 2023 12:44:06 INFO  Current Result: Recall@20: 13.3551 	 MMR@20: 5.1131 	 NDCG@20: 0.9826
+Tue 01 Sep 2023 12:44:06 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6355 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 30, 	 27)
+Tue 01 Sep 2023 12:44:06 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:44:06 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:44:06 INFO  epoch: 33
+Tue 01 Sep 2023 12:44:06 INFO  start training.
+Tue 01 Sep 2023 12:46:41 INFO  	Loss:	2589.921 	 V_loss_cor: 10.095 	 V_loss_corcode: 124.525 	 T_loss_cor: 3.776 	 T_loss_corcode: 20.566
+Tue 01 Sep 2023 12:46:41 INFO  start predicting.
+Tue 01 Sep 2023 12:47:00 INFO  Current Result: Recall@5: 7.0326 	 MMR@5: 4.4543 	 NDCG@5: 1.7275
+Tue 01 Sep 2023 12:47:00 INFO  Current Result: Recall@20: 13.3817 	 MMR@20: 5.0622 	 NDCG@20: 0.9777
+Tue 01 Sep 2023 12:47:00 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6355 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 30, 	 27)
+Tue 01 Sep 2023 12:47:00 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:47:00 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:47:00 INFO  epoch: 34
+Tue 01 Sep 2023 12:47:00 INFO  start training.
+Tue 01 Sep 2023 12:49:38 INFO  	Loss:	2553.668 	 V_loss_cor: 10.310 	 V_loss_corcode: 125.353 	 T_loss_cor: 3.775 	 T_loss_corcode: 20.065
+Tue 01 Sep 2023 12:49:38 INFO  start predicting.
+Tue 01 Sep 2023 12:49:57 INFO  Current Result: Recall@5: 6.9972 	 MMR@5: 4.4978 	 NDCG@5: 1.7354
+Tue 01 Sep 2023 12:49:57 INFO  Current Result: Recall@20: 13.2697 	 MMR@20: 5.0999 	 NDCG@20: 0.9781
+Tue 01 Sep 2023 12:49:57 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6355 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 30, 	 27)
+Tue 01 Sep 2023 12:49:57 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:49:57 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:49:57 INFO  epoch: 35
+Tue 01 Sep 2023 12:49:57 INFO  start training.
+Tue 01 Sep 2023 12:52:36 INFO  	Loss:	2515.787 	 V_loss_cor: 10.451 	 V_loss_corcode: 126.453 	 T_loss_cor: 3.771 	 T_loss_corcode: 19.298
+Tue 01 Sep 2023 12:52:36 INFO  start predicting.
+Tue 01 Sep 2023 12:52:56 INFO  Current Result: Recall@5: 7.0355 	 MMR@5: 4.5162 	 NDCG@5: 1.7436
+Tue 01 Sep 2023 12:52:56 INFO  Current Result: Recall@20: 13.1901 	 MMR@20: 5.1100 	 NDCG@20: 0.9773
+Tue 01 Sep 2023 12:52:56 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6355 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 30, 	 27)
+Tue 01 Sep 2023 12:52:56 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:52:56 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:52:56 INFO  epoch: 36
+Tue 01 Sep 2023 12:52:56 INFO  start training.
+Tue 01 Sep 2023 12:55:27 INFO  	Loss:	2481.496 	 V_loss_cor: 10.631 	 V_loss_corcode: 126.176 	 T_loss_cor: 3.849 	 T_loss_corcode: 19.002
+Tue 01 Sep 2023 12:55:27 INFO  start predicting.
+Tue 01 Sep 2023 12:55:48 INFO  Current Result: Recall@5: 6.9854 	 MMR@5: 4.4745 	 NDCG@5: 1.7287
+Tue 01 Sep 2023 12:55:48 INFO  Current Result: Recall@20: 13.0782 	 MMR@20: 5.0656 	 NDCG@20: 0.9691
+Tue 01 Sep 2023 12:55:48 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6355 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 30, 	 27)
+Tue 01 Sep 2023 12:55:48 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:55:48 INFO  -------------------------------------------------------
+Tue 01 Sep 2023 12:55:48 INFO  epoch: 37
+Tue 01 Sep 2023 12:55:48 INFO  start training.
+Tue 01 Sep 2023 12:58:27 INFO  	Loss:	2446.587 	 V_loss_cor: 10.736 	 V_loss_corcode: 126.849 	 T_loss_cor: 3.686 	 T_loss_corcode: 18.295
+Tue 01 Sep 2023 12:58:27 INFO  start predicting.
+Tue 01 Sep 2023 12:58:47 INFO  Current Result: Recall@5: 6.9589 	 MMR@5: 4.4020 	 NDCG@5: 1.7080
+Tue 01 Sep 2023 12:58:47 INFO  Current Result: Recall@20: 13.1430 	 MMR@20: 4.9924 	 NDCG@20: 0.9626
+Tue 01 Sep 2023 12:58:47 INFO  >> Best Result: Recall@5: 7.4156 	 MMR@5: 4.6355 	 NDCG@5: 1.7893   (Epoch: 	 14, 	 30, 	 27)
+Tue 01 Sep 2023 12:58:47 INFO  >> Best Result: Recall@20: 14.6750 	 MMR@20: 5.2444 	 NDCG@20: 1.0212   (Epoch: 	 14, 	 27, 	 16)
+Tue 01 Sep 2023 12:58:47 INFO  Early stoped.
+Tue 01 Sep 2023 12:58:47 INFO  ========================================================
+Tue 01 Sep 2023 12:58:47 INFO  ./log/VLGraph/beauty/bs256-Sep-01-2023_19-03-36-lr0.001-hNone/5.244351329814126.log
